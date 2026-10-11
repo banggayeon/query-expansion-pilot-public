@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.npy
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa
+id_ed25519
+.ssh/
+.venv/
+venv/
+.cache/
+*.log
