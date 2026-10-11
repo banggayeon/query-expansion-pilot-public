@@ -1,0 +1,43 @@
+{
+  "run_id": "cpu_minimal_20261011",
+  "allowed_methods": [
+    "bm25_O",
+    "bm25_D",
+    "dense_O",
+    "hybrid_OO",
+    "hybrid_DO"
+  ],
+  "cpu_only": true,
+  "llm_expansion": false,
+  "reranker": false,
+  "es": false,
+  "ks": [
+    10,
+    20,
+    50,
+    100
+  ],
+  "dictionary_mode": "bidirectional_exact_span_same_sense",
+  "dictionary_verifier": "ai_source_qc_not_human",
+  "dictionary_terms": [
+    "ACL",
+    "TLS",
+    "RPO",
+    "RTO"
+  ],
+  "max_aliases": 3,
+  "max_extra_words": 16,
+  "scoring_module": "qepilot.scoring unchanged",
+  "qrels_api_status": "draft",
+  "allow_draft": true,
+  "warning": "Frozen evaluator has no AI provisional status; preserve raw fixture_only and wrap with explicit provisional interpretation, never mark reviewed.",
+  "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+  "backend": "official unquantized onnx/model.onnx; CPUExecutionProvider; float32; masked mean pooling and L2 normalization",
+  "batch_size": 16,
+  "threads": 4,
+  "max_sequence_length": 256,
+  "qc_sensitivity_exclude_families": [
+    "f04"
+  ],
+  "data_corrections": false
+}

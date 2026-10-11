@@ -1,0 +1,42 @@
+{
+  "schema_version": "2.1",
+  "stage": "A_fixture_only",
+  "families": 12,
+  "corpus_size": 60,
+  "variants": [
+    "q0",
+    "qINV",
+    "qDIR"
+  ],
+  "setup_families": [
+    "f05",
+    "f08"
+  ],
+  "ks": [
+    10,
+    20,
+    50,
+    100
+  ],
+  "primary_diagnostic_k": [
+    10,
+    20
+  ],
+  "k100": "N/A when corpus_size < 100",
+  "methods": [
+    "hybrid_OO",
+    "hybrid_DO",
+    "hybrid_LO",
+    "hybrid_DL",
+    "bm25_O",
+    "bm25_D",
+    "bm25_L"
+  ],
+  "qrels_status": "draft",
+  "allow_search_execution": false,
+  "allow_llm_execution": false,
+  "allow_reranker_execution": false,
+  "scoring_implementation": "experimental_phrase_max_v1",
+  "source_date": "2026-10-11",
+  "seed": 20261010
+}
