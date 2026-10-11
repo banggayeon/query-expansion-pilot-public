@@ -1,0 +1,819 @@
+[
+  {
+    "id": "f01",
+    "domain": "access_identity",
+    "type": "lexical_confusable",
+    "inv": "paraphrase",
+    "split": "observe",
+    "q": [
+      "How is service account authentication performed at the API gateway?",
+      "At the API gateway, how is the identity of a service account verified?",
+      "How is service account authorization performed at the API gateway?"
+    ],
+    "terms": [
+      "authentication",
+      "authorization"
+    ],
+    "senses": [
+      "identity_verification",
+      "permission_decision"
+    ],
+    "invterm": "identity of a service account",
+    "immutable": [
+      [
+        "service account",
+        "API gateway"
+      ],
+      [
+        "API gateway"
+      ],
+      [
+        "service account",
+        "API gateway"
+      ]
+    ],
+    "context": "This note describes a fictional gateway used by a small reporting service. Its procedures belong to the pilot scenario, not to a deployed product. The examples concern machine identities rather than interactive employee sessions.",
+    "difference": "Establishing who the caller is differs from deciding which resources that caller may use.",
+    "sources": [
+      "nist_authentication",
+      "nist_authorization"
+    ],
+    "docs": [
+      [
+        "Machine identity check",
+        "The gateway authenticates a service account by validating a signed challenge with the public key registered for that account. A fresh nonce prevents replay. Failed signatures stop the request before any resource policy is read. Operators inspect the challenge result and account identifier in the audit record. Passing this check establishes the caller's identity; it does not by itself assign any permission or grant access to reports."
+      ],
+      [
+        "Resource policy evaluation",
+        "After a machine identity has been established, authorization evaluates the requested report and operation against the account's access control list. An explicit denial takes precedence over a grant. The gateway records the policy identifier and resulting permission decision. To diagnose a rejected operation, compare the requested resource with the applicable entries. Replacing the account's signing key does not change its permissions in this fictional service."
+      ],
+      [
+        "Request accounting records",
+        "Accounting records measure how many gateway calls a service account makes and how long those calls take. The exporter reads completed request logs once an hour and groups them by billing label. It does not verify credentials or decide whether a caller may read a report. A missing accounting label can affect usage totals while the underlying authentication and authorization decisions remain unchanged."
+      ],
+      [
+        "Two decision stages",
+        "The service first checks a nonce signature against the account's registered public key. If that succeeds, it checks the requested operation against an access control list, with denial taking precedence. These two recorded outcomes separate authentication from authorization. A bad signature requires an identity investigation; a denied report requires a policy investigation. Operators must not interpret a successful first stage as proof that the second stage will allow access."
+      ],
+      [
+        "Gateway display settings",
+        "The dashboard can group gateway charts by region, reporting team, or calendar day. Selecting a group changes only the presentation of existing counters. It does not change report routing, account credentials, policy entries, or the values retained in the logs. To compare two periods, keep the same grouping and time zone. Chart preferences are saved per viewer and can be reset without restarting the gateway."
+      ]
+    ]
+  },
+  {
+    "id": "f02",
+    "domain": "crypto_certificates",
+    "type": "lexical_confusable",
+    "inv": "word_order",
+    "split": "observe",
+    "q": [
+      "How is archive encryption performed in the transfer service?",
+      "In the transfer service, how is archive encryption performed?",
+      "How is archive decryption performed in the transfer service?"
+    ],
+    "terms": [
+      "encryption",
+      "decryption"
+    ],
+    "senses": [
+      "plaintext_to_ciphertext",
+      "ciphertext_to_plaintext"
+    ],
+    "invterm": "encryption",
+    "immutable": [
+      [
+        "archive",
+        "transfer service"
+      ],
+      [
+        "transfer service",
+        "archive"
+      ],
+      [
+        "archive",
+        "transfer service"
+      ]
+    ],
+    "context": "The transfer service in this scenario moves prepared archives between two isolated work areas. Operators have separate preparation and receiving accounts. Names of buttons and files below are invented for this dataset and are not instructions for a real service.",
+    "difference": "Encryption produces ciphertext from plaintext; decryption recovers plaintext from ciphertext.",
+    "sources": [
+      "nist_encryption",
+      "nist_decryption"
+    ],
+    "docs": [
+      [
+        "Preparing a sealed archive",
+        "Choose Seal in the preparation console and supply the recipient key identifier. The service encrypts the archive and writes the resulting ciphertext to an outbound container. The plaintext source is retained until the transfer receipt is checked. Record the key identifier with the job, since using an unrelated key will prevent the intended recipient from opening the contents. Merely changing the filename does not seal the archive."
+      ],
+      [
+        "Opening a received archive",
+        "Choose Open in the receiving console and select the key associated with the incoming archive. The service decrypts its ciphertext into a separate temporary directory and verifies the stored integrity value before exposing the files. An integrity failure leaves the files unavailable. The received container remains unchanged for diagnosis. A missing or unrelated key cannot be repaired by renaming the archive or changing its transfer label."
+      ],
+      [
+        "Printable archive transport",
+        "The text transport option applies base64 encoding to an archive container so it can pass through a channel that accepts printable characters. Decoding reconstructs the same container bytes. This operation uses no secret key and does not provide confidentiality. It neither encrypts a plaintext archive nor decrypts a sealed one, even though the display becomes unreadable to someone expecting ordinary file contents."
+      ],
+      [
+        "Outbound and inbound checklist",
+        "For outbound preparation, select Seal with the recipient key identifier to create ciphertext. For inbound handling, select Open with the matching key to recover the contents in a temporary directory. The service checks integrity before releasing recovered files. These encryption and decryption actions are distinct from base64 transport encoding. Preserve the original container and the job record until both receipt and integrity have been checked."
+      ],
+      [
+        "Transfer queue ordering",
+        "Queue priority controls which prepared archive is sent next. Urgent jobs move ahead of ordinary jobs, but already active transfers finish first. Changing priority does not alter the container bytes, the recipient key, or the contents of the archive. A paused queue retains its ordering until resumed. Operators should compare queued job identifiers with transfer receipts when investigating a late delivery."
+      ]
+    ]
+  },
+  {
+    "id": "f03",
+    "domain": "network_security",
+    "type": "lexical_confusable",
+    "inv": "word_order",
+    "split": "observe",
+    "q": [
+      "How does stateful inspection evaluate inbound packets on the branch firewall?",
+      "On the branch firewall, how does stateful inspection evaluate inbound packets?",
+      "How does stateless inspection evaluate inbound packets on the branch firewall?"
+    ],
+    "terms": [
+      "stateful inspection",
+      "stateless inspection"
+    ],
+    "senses": [
+      "flow_context_inspection",
+      "isolated_packet_inspection"
+    ],
+    "invterm": "stateful inspection",
+    "immutable": [
+      [
+        "inbound",
+        "branch firewall"
+      ],
+      [
+        "branch firewall",
+        "inbound"
+      ],
+      [
+        "inbound",
+        "branch firewall"
+      ]
+    ],
+    "context": "A fictional branch lab has a firewall with separate inspection modes and a monitoring panel. The lab routes traffic through only the configured mode during a test. The descriptions below explain local behavior rather than vendor configuration syntax.",
+    "difference": "Flow-aware packet evaluation uses connection context; stateless evaluation examines each packet without that context.",
+    "sources": [
+      "aws_firewall"
+    ],
+    "docs": [
+      [
+        "Connection-aware packet checks",
+        "Stateful inspection looks up each inbound packet in the flow table before applying the connection policy. A packet associated with an established permitted flow can be treated differently from an unsolicited opening packet. The log includes the matching flow identifier. When diagnosing an unexpected decision, inspect the connection state together with the rule result; checking only the current packet header omits part of the decision input."
+      ],
+      [
+        "Independent packet checks",
+        "Stateless inspection compares each inbound packet's header with the ordered packet rules. The first matching rule decides its disposition without consulting previous packets or a connection table. Return traffic therefore needs its own applicable rule. The diagnostic record contains the selected rule identifier but no remembered flow state. An earlier allowed packet does not automatically authorize a later packet under this mode."
+      ],
+      [
+        "Firewall state display",
+        "The state panel reports whether the branch firewall process is running and whether its disk is healthy. A green state indicator says nothing about connection tracking or packet evaluation. The panel can remain green while a policy rejects inbound traffic. It does not perform stateful or stateless inspection. Operators use the packet decision log, rather than this health display, to investigate a rule's treatment of traffic."
+      ],
+      [
+        "Inspection-mode comparison",
+        "The flow-aware mode evaluates inbound packets with remembered connection state and records a flow identifier. The independent mode evaluates the current header against ordered rules without remembering earlier packets. Select the decision log matching the configured mode when investigating a rejection. Stateful and stateless inspection can produce different outcomes for similar headers because their available context differs. A healthy process indicator does not identify which policy allowed a packet."
+      ],
+      [
+        "Branch log rotation",
+        "Decision logs rotate when a local file reaches the configured storage limit. The newest file receives subsequent events while older files remain readable until the retention task removes them. Rotation affects log storage, not packet treatment or the selected inspection mode. If a diagnostic interval spans a rotation, read both adjacent files and order events by timestamp rather than by filename alone."
+      ]
+    ]
+  },
+  {
+    "id": "f04",
+    "domain": "backup_recovery",
+    "type": "lexical_confusable",
+    "inv": "abbreviation",
+    "split": "observe",
+    "q": [
+      "How do we verify a 15-minute RPO for the ledger recovery drill?",
+      "How do we verify a 15-minute recovery point objective for the ledger recovery drill?",
+      "How do we verify a 15-minute RTO for the ledger recovery drill?"
+    ],
+    "terms": [
+      "RPO",
+      "RTO"
+    ],
+    "senses": [
+      "recoverable_data_age",
+      "service_recovery_duration"
+    ],
+    "invterm": "recovery point objective",
+    "immutable": [
+      [
+        "15-minute",
+        "ledger recovery drill"
+      ],
+      [
+        "15-minute",
+        "ledger recovery drill"
+      ],
+      [
+        "15-minute",
+        "ledger recovery drill"
+      ]
+    ],
+    "context": "The ledger team in this fictional exercise records both an interruption time and recovery measurements. The drill uses disposable records and an isolated copy of the service. None of its time limits are recommendations for production systems.",
+    "difference": "RPO checks recoverable data age at interruption; RTO checks time to resume service.",
+    "sources": [
+      "nist_rpo",
+      "nist_rto"
+    ],
+    "docs": [
+      [
+        "Recoverable record age",
+        "To check the recovery point objective, identify the newest committed ledger record present in the restored copy. Subtract its commit timestamp from the recorded interruption timestamp. A gap no greater than fifteen minutes meets this drill's target. Record the two timestamps and the resulting gap. This check concerns potential lost work and is independent of how long the restoration process itself takes to complete."
+      ],
+      [
+        "Time to resume ledger service",
+        "Start the recovery timer at the recorded interruption and stop it when the restored ledger passes the read-and-write readiness check. An elapsed time no greater than fifteen minutes meets the recovery time objective in this drill. Save the readiness result with both timestamps. Recovering very recent records does not establish that service resumed quickly enough; data freshness and elapsed outage time are different measurements."
+      ],
+      [
+        "Export batch duration",
+        "The export worker reports how long it spends writing one ledger batch to storage. A fifteen-minute export duration is a processing measurement, not a recovery point objective or a recovery time objective result. The report contains neither the interruption timestamp nor the restored service readiness time. It also does not identify the latest record in a restored copy, so it cannot establish either drill target."
+      ],
+      [
+        "Ledger drill scorecard",
+        "The scorecard contains two independent checks. Compare interruption time with the newest recovered commit to evaluate the fifteen-minute RPO. Compare interruption time with successful service readiness to evaluate the fifteen-minute RTO. Each difference must be recorded with its source timestamps. Passing one check does not imply passing the other. Export batch duration is retained separately and is not substituted for either of these recovery measurements."
+      ],
+      [
+        "Drill observer access",
+        "Observers can read the drill notebook after the coordinator closes the exercise. They cannot change timestamps, remove failed checks, or modify the restored copy. An observer invitation expires when the notebook is archived. The invitation controls access to the exercise record only; it does not trigger a restore or change the criteria used to decide whether any recovery target was met."
+      ]
+    ]
+  },
+  {
+    "id": "f05",
+    "domain": "access_identity",
+    "type": "negation_action",
+    "inv": "abbreviation",
+    "split": "setup",
+    "q": [
+      "How do I allow contractor reads using the ACL on the release repository?",
+      "How do I allow contractor reads using the access control list on the release repository?",
+      "How do I deny contractor reads using the ACL on the release repository?"
+    ],
+    "terms": [
+      "allow",
+      "deny"
+    ],
+    "senses": [
+      "grant_read",
+      "deny_read"
+    ],
+    "invterm": "access control list",
+    "semantic": [
+      "ACL",
+      "access control list",
+      "ACL"
+    ],
+    "semantic_sense": "access_control_list",
+    "immutable": [
+      [
+        "allow",
+        "contractor reads",
+        "release repository"
+      ],
+      [
+        "allow",
+        "contractor reads",
+        "release repository"
+      ],
+      [
+        "deny",
+        "contractor reads",
+        "release repository"
+      ]
+    ],
+    "context": "The release repository is a fictional collection of build artifacts. Its contractor group is separate from employee and automation groups. Changes below apply only to this repository and are evaluated using its small local permission table.",
+    "difference": "Granting reads and denying reads are opposite permission outcomes.",
+    "sources": [
+      "nist_acl"
+    ],
+    "docs": [
+      [
+        "Contractor read grant",
+        "Create an access control list entry for the contractor group with the read operation set to allow. Remove any explicit contractor read denial first, because denial takes precedence in this repository. Save the table and test a read as a contractor account. The grant does not include writes or publication. Record the entry identifier so an operator can later distinguish this permission from grants to other groups."
+      ],
+      [
+        "Contractor read denial",
+        "Set the contractor group's read entry to deny and save the repository ACL. This explicit denial takes precedence over a broader read grant inherited from another local group. Verify the result using a contractor read request while leaving employee permissions unchanged. Existing artifacts remain stored in the repository. Denying reads does not delete artifacts or prevent a separately authorized publisher from uploading a new build."
+      ],
+      [
+        "Contractor upload grant",
+        "The publish entry permits a contractor to upload a new artifact to the release repository. This entry is evaluated for uploads, not for reads, and does not alter the read decision. It may coexist with an explicit read denial. If a user can publish but cannot fetch a build, inspect the two operation entries separately instead of treating every repository permission as a single switch."
+      ],
+      [
+        "Repository permission change review",
+        "For contractor reads, an allow entry grants access only when no explicit denial applies. A deny entry blocks the operation even if another group grants it. Review the read row in the access control list and test with a contractor identity after saving. Do not substitute the publication row: upload permission and read permission govern different operations in this repository and can intentionally differ."
+      ],
+      [
+        "Artifact label convention",
+        "Build labels contain a project abbreviation and a monotonically increasing sequence number. The repository displays labels in sequence order but stores the full artifact identifier separately. Renaming a label does not move an artifact or alter its permission entries. When sharing a build reference, include the identifier as well as the label so a later presentation change does not make the reference ambiguous."
+      ]
+    ]
+  },
+  {
+    "id": "f06",
+    "domain": "backup_recovery",
+    "type": "negation_action",
+    "inv": "synonym",
+    "split": "observe",
+    "q": [
+      "How do I enable automatic backups for the image catalog?",
+      "What turns on scheduled backups for the image catalog?",
+      "How do I disable automatic backups for the image catalog?"
+    ],
+    "terms": [
+      "enable",
+      "disable"
+    ],
+    "senses": [
+      "start_scheduled_backup",
+      "stop_scheduled_backup"
+    ],
+    "invterm": "scheduled backups",
+    "semantic": [
+      "automatic backups",
+      "scheduled backups",
+      "automatic backups"
+    ],
+    "semantic_sense": "scheduled_backup",
+    "immutable": [
+      [
+        "enable",
+        "image catalog"
+      ],
+      [
+        "turns on",
+        "image catalog"
+      ],
+      [
+        "disable",
+        "image catalog"
+      ]
+    ],
+    "context": "The image catalog is a fictional service with a local scheduler and a separate manual export tool. Backup records in this scenario are disposable. The scheduler's state and the presence of older copies are tracked independently.",
+    "difference": "Enabling future scheduled jobs differs from disabling them.",
+    "sources": [],
+    "docs": [
+      [
+        "Scheduler activation",
+        "Set the catalog scheduler to active and choose the nightly backup window. Save the schedule, then confirm that the next-run field contains a future time. Automatic backups begin at that window rather than immediately. Existing copies remain unchanged. A manual export can still be started independently, but creating such an export is not evidence that the automatic scheduler is active or will run the following night."
+      ],
+      [
+        "Scheduler suspension",
+        "Set the catalog scheduler to paused and save the change. The next-run field becomes empty, and no new automatic backup job is started. A job already running is allowed to finish. Earlier backup copies remain available. This operation disables scheduled backups without deleting history; removing an old copy or cancelling one manual export does not have the same effect on future scheduled work."
+      ],
+      [
+        "Removing a historical copy",
+        "Select a dated backup in the catalog history and remove that copy after checking its retention label. This changes the stored history but leaves the scheduler state and its next-run field unchanged. Deleting a copy neither enables nor disables automatic backups. If the schedule is active, a future job can create another copy even when every older copy has been removed."
+      ],
+      [
+        "Schedule state quick reference",
+        "An active scheduler with a configured nightly window shows a future next-run time and starts automatic jobs. A paused scheduler shows no next-run time and starts no new automatic jobs; an already running job may finish. Use the scheduler state to enable or disable this behavior. Manual exports and deletion of historical copies are separate actions and should not be used as substitutes for a schedule change."
+      ],
+      [
+        "Image preview sizing",
+        "The catalog stores a small preview beside each uploaded image. The preview size setting changes the dimensions used for newly generated previews, not for existing originals. A rebuild can replace old previews later. This display setting is independent of the backup schedule and does not create or delete a backup copy. Operators can change preview dimensions without pausing catalog access."
+      ]
+    ]
+  },
+  {
+    "id": "f07",
+    "domain": "access_identity",
+    "type": "target_role",
+    "inv": "word_order",
+    "split": "observe",
+    "q": [
+      "How do I rotate the reader credential for the audit database?",
+      "For the audit database, how do I rotate the reader credential?",
+      "How do I rotate the writer credential for the audit database?"
+    ],
+    "terms": [
+      "reader",
+      "writer"
+    ],
+    "senses": [
+      "read_identity",
+      "write_identity"
+    ],
+    "invterm": "credential",
+    "semantic": [
+      "credential",
+      "credential",
+      "credential"
+    ],
+    "semantic_sense": "database_credential",
+    "immutable": [
+      [
+        "rotate",
+        "reader",
+        "audit database"
+      ],
+      [
+        "audit database",
+        "rotate",
+        "reader"
+      ],
+      [
+        "rotate",
+        "writer",
+        "audit database"
+      ]
+    ],
+    "context": "The audit database in this scenario assigns separate credentials to reading and writing processes. Each credential has an active slot and a pending slot. The rotation steps are local fictional procedures and do not describe a commercial database.",
+    "difference": "The target identity changes from reader to writer; rotating one must not affect the other.",
+    "sources": [],
+    "docs": [
+      [
+        "Read process credential replacement",
+        "Place the replacement secret in the reader's pending slot and update the read process to use that slot. Confirm a read-only health query succeeds, then promote the pending slot and revoke the old reader secret. The writer process continues using its own credential throughout. Do not validate this change with a write operation, since the reader identity is intentionally unable to write audit records."
+      ],
+      [
+        "Write process credential replacement",
+        "Load the new secret into the writer's pending slot and update the ingestion process. Confirm a test audit record can be committed before promoting the slot and revoking the previous writer secret. The reader identity and its active slot are not changed. A successful read-only query is insufficient evidence for this rotation because it does not exercise the writer's permission to commit a record."
+      ],
+      [
+        "Database encryption key rollover",
+        "A storage key rollover replaces the key protecting audit database pages at rest. The database rewrites its key metadata while retaining the reader and writer login secrets. This operation is not credential rotation for either process. A completed storage rollover therefore does not prove that an old reader or writer secret has been revoked. Check identity slots separately when investigating login credentials."
+      ],
+      [
+        "Credential rotation matrix",
+        "For the reader, stage a new secret, switch the read process, and verify a read-only query before revoking the old secret. For the writer, stage its own replacement, switch ingestion, and verify a committed test record before revocation. Each identity has separate pending and active slots. The matrix distinguishes login credentials from the database storage key, which can be rolled over without changing either identity."
+      ],
+      [
+        "Audit column presentation",
+        "The review console can hide verbose audit columns while preserving them in the database. This preference affects only the current viewer's table layout. Exports continue to include all requested fields according to the export format. Hiding a column does not change a database identity, its permissions, or any stored audit event. Reviewers can reset the layout when comparing screenshots from different workstations."
+      ]
+    ]
+  },
+  {
+    "id": "f08",
+    "domain": "crypto_certificates",
+    "type": "target_role",
+    "inv": "word_order",
+    "split": "setup",
+    "q": [
+      "How do I inspect the client certificate expiry at the relay?",
+      "At the relay, how do I inspect the client certificate expiry?",
+      "How do I inspect the server certificate expiry at the relay?"
+    ],
+    "terms": [
+      "client",
+      "server"
+    ],
+    "senses": [
+      "peer_client_certificate",
+      "local_server_certificate"
+    ],
+    "invterm": "certificate",
+    "semantic": [
+      "certificate",
+      "certificate",
+      "certificate"
+    ],
+    "semantic_sense": "public_key_certificate",
+    "immutable": [
+      [
+        "inspect",
+        "client",
+        "expiry",
+        "relay"
+      ],
+      [
+        "relay",
+        "inspect",
+        "client",
+        "expiry"
+      ],
+      [
+        "inspect",
+        "server",
+        "expiry",
+        "relay"
+      ]
+    ],
+    "context": "The fictional relay accepts encrypted connections from managed clients. Its diagnostic console distinguishes the certificate presented by a connecting client from the certificate served by the relay itself. The procedure concerns expiry inspection, not renewal or revocation.",
+    "difference": "The certificate owner changes from the remote client to the relay server.",
+    "sources": [],
+    "docs": [
+      [
+        "Peer certificate validity view",
+        "Open the relay's peer-session view and select the client connection under investigation. Read the not-after timestamp from the certificate presented by that peer and compare it with the inspection time. Record the peer identifier with the timestamp so another session is not confused with this one. The relay's local certificate panel shows a different certificate and cannot establish this client's expiry."
+      ],
+      [
+        "Local certificate validity view",
+        "Open the relay's listener panel and inspect the certificate bound to the server listener. Its not-after timestamp gives the expiry of the certificate the relay presents to clients. Record the listener name and inspection time. A peer-session certificate belongs to a connecting client, not to this server, so an unexpired peer certificate does not establish that the relay's own certificate remains valid."
+      ],
+      [
+        "Certificate revocation status view",
+        "The revocation panel records whether an issuer has marked a relay certificate as revoked. It does not display the not-after timestamp and cannot establish when a client or server certificate expires. A certificate can be unexpired yet revoked, or expired without appearing in this local revocation cache. Use the appropriate validity view when the task is expiry inspection rather than a revocation investigation."
+      ],
+      [
+        "Choosing a certificate panel",
+        "To inspect client expiry, select its peer session and read the peer certificate's not-after value. To inspect server expiry, select the listener and read the bound local certificate's not-after value. Save the panel identifier and observation time with either result. These views answer different ownership questions, while the separate revocation cache describes issuer status rather than the end of a certificate's validity period."
+      ],
+      [
+        "Relay banner customization",
+        "The relay dashboard displays a configurable banner above connection charts. Updating the banner changes neither the listener binding nor any certificate file. Banner text is stored with viewer preferences and may differ between operators looking at the same relay. Include the actual listener identifier when reporting a connection issue instead of relying on a customized dashboard caption to identify the affected service."
+      ]
+    ]
+  },
+  {
+    "id": "f09",
+    "domain": "crypto_certificates",
+    "type": "version_protocol",
+    "inv": "abbreviation",
+    "split": "observe",
+    "q": [
+      "How do I select TLS 1.2 only for the test listener?",
+      "How do I select Transport Layer Security 1.2 only for the test listener?",
+      "How do I select TLS 1.3 only for the test listener?"
+    ],
+    "terms": [
+      "1.2",
+      "1.3"
+    ],
+    "senses": [
+      "tls_version_1_2",
+      "tls_version_1_3"
+    ],
+    "invterm": "Transport Layer Security",
+    "semantic": [
+      "TLS",
+      "Transport Layer Security",
+      "TLS"
+    ],
+    "semantic_sense": "transport_layer_security",
+    "immutable": [
+      [
+        "select",
+        "1.2",
+        "only",
+        "test listener"
+      ],
+      [
+        "select",
+        "1.2",
+        "only",
+        "test listener"
+      ],
+      [
+        "select",
+        "1.3",
+        "only",
+        "test listener"
+      ]
+    ],
+    "context": "The test listener belongs to an isolated fictional compatibility harness. It can pin both ends of a protocol version range. The configuration examples are scenario facts, not recommendations about which protocol version a production deployment should use.",
+    "difference": "The exact permitted protocol version changes; both minimum and maximum must match.",
+    "sources": [
+      "nist_tls"
+    ],
+    "docs": [
+      [
+        "Listener compatibility profile",
+        "For the older compatibility run, set both the minimum and maximum TLS version to 1.2. Reload the test listener and confirm that its negotiated version report shows 1.2. Pinning only the minimum would still allow a higher version and does not meet an only-version request. Keep this profile associated with the isolated harness so it is not mistaken for a general deployment policy."
+      ],
+      [
+        "Listener current profile",
+        "Set both ends of the test listener's Transport Layer Security version range to 1.3 and reload it. Confirm that the negotiated version report shows 1.3. A minimum of 1.3 with a different maximum is not the pinned profile described here. The profile changes the version constraint only; the listener certificate and peer identity checks remain separate settings in this compatibility harness."
+      ],
+      [
+        "Mixed listener version range",
+        "A minimum TLS version of 1.2 and maximum of 1.3 lets the test listener negotiate either version when a compatible peer connects. This range is useful for a mixed compatibility exercise but does not select 1.2 only or 1.3 only. Inspect both endpoints of the range before describing a listener as pinned. A single negotiated session does not prove that every allowed version is the same."
+      ],
+      [
+        "Pinned version checklist",
+        "An only-version test requires equal minimum and maximum values. Use 1.2 at both endpoints for the older run, or 1.3 at both endpoints for the newer run. Reload the listener and check its version report after each change. A range from 1.2 to 1.3 permits both and is a different experiment. Record the selected profile separately from the listener's certificate identity."
+      ],
+      [
+        "Listener connection counter",
+        "The compatibility harness counts accepted connections and resets the visible counter when a new measurement interval starts. Resetting the counter does not reload the listener or change its version range. Failed connection attempts appear in a separate error total. When comparing runs, record the interval boundaries and profile identifier so counters from different test configurations are not accidentally combined."
+      ]
+    ]
+  },
+  {
+    "id": "f10",
+    "domain": "network_security",
+    "type": "version_protocol",
+    "inv": "paraphrase",
+    "split": "observe",
+    "q": [
+      "How do I bind an IPv4-only health endpoint on the monitor?",
+      "How do I configure the monitor health endpoint to listen exclusively on IPv4?",
+      "How do I bind an IPv6-only health endpoint on the monitor?"
+    ],
+    "terms": [
+      "IPv4",
+      "IPv6"
+    ],
+    "senses": [
+      "ipv4_only",
+      "ipv6_only"
+    ],
+    "invterm": "health endpoint",
+    "semantic": [
+      "health endpoint",
+      "health endpoint",
+      "health endpoint"
+    ],
+    "semantic_sense": "health_endpoint",
+    "immutable": [
+      [
+        "bind",
+        "IPv4-only",
+        "monitor"
+      ],
+      [
+        "monitor",
+        "exclusively",
+        "IPv4"
+      ],
+      [
+        "bind",
+        "IPv6-only",
+        "monitor"
+      ]
+    ],
+    "context": "The monitor is a fictional network diagnostic service with a small health listener. Its socket mode is controlled explicitly rather than inherited from an operating system default. The examples describe this scenario's configuration and not universal socket behavior.",
+    "difference": "The required address family changes; dual-stack is not equivalent to either exclusive setting.",
+    "sources": [],
+    "docs": [
+      [
+        "Four-byte address listener",
+        "Set the monitor listener family to IPv4 and disable the separate IPv6 socket. Bind the health endpoint to the configured IPv4 address, then confirm that the listener table contains no IPv6 health entry. This produces an IPv4-only endpoint in the scenario. Testing one successful IPv4 request is not enough to establish exclusivity if a second socket remains open for another address family."
+      ],
+      [
+        "Sixteen-byte address listener",
+        "Select IPv6 for the monitor's health socket and turn on its IPv6-only flag. Remove the separate IPv4 listener before reloading the endpoint. Confirm that the listener table contains only the intended IPv6 entry. This fictional service exposes the flag explicitly; without it, the configured socket mode may admit another address family and would not satisfy the requested IPv6-only behavior."
+      ],
+      [
+        "Dual-stack health service",
+        "The dual-stack profile starts one health listener for each address family. Both IPv4 and IPv6 requests can reach the monitor. This is useful for mixed clients but does not satisfy a request for either family exclusively. A successful probe on one family cannot reveal whether the other socket is also running. Read the listener table when verifying an only-family requirement."
+      ],
+      [
+        "Address family selection guide",
+        "For IPv4-only health checks, retain the IPv4 socket and remove the IPv6 socket. For IPv6-only checks, retain the IPv6 socket with its only flag enabled and remove IPv4. Reload the monitor after the change and inspect all listener entries. The dual-stack profile deliberately keeps both families and is not an equivalent abbreviation for either exclusive configuration."
+      ],
+      [
+        "Health response format",
+        "The monitor health response can use a short text body or a structured status object. Selecting a format changes the response body on the existing endpoint but does not create another listener. Address bindings and socket family settings remain untouched. A response format mismatch can confuse a client parser even while the listener remains reachable on the correctly configured network address."
+      ]
+    ]
+  },
+  {
+    "id": "f11",
+    "domain": "backup_recovery",
+    "type": "numeric_scope",
+    "inv": "word_order",
+    "split": "observe",
+    "q": [
+      "How do I retain daily snapshots for exactly 7 days in the media vault?",
+      "In the media vault, how do I retain daily snapshots for exactly 7 days?",
+      "How do I retain daily snapshots for exactly 30 days in the media vault?"
+    ],
+    "terms": [
+      "7",
+      "30"
+    ],
+    "senses": [
+      "retention_seven_days",
+      "retention_thirty_days"
+    ],
+    "invterm": "daily snapshots",
+    "semantic": [
+      "daily snapshots",
+      "daily snapshots",
+      "daily snapshots"
+    ],
+    "semantic_sense": "daily_snapshot",
+    "immutable": [
+      [
+        "retain",
+        "exactly",
+        "7 days",
+        "media vault"
+      ],
+      [
+        "media vault",
+        "retain",
+        "exactly",
+        "7 days"
+      ],
+      [
+        "retain",
+        "exactly",
+        "30 days",
+        "media vault"
+      ]
+    ],
+    "context": "The media vault is a fictional backup store with a day-based expiry policy for daily snapshots. Its policy is independent of weekly exports. The example durations are test requirements chosen for contrast, not guidance about legal or operational retention.",
+    "difference": "The exact retention duration changes from seven to thirty days.",
+    "sources": [],
+    "docs": [
+      [
+        "Short snapshot lifecycle",
+        "Set the daily snapshot expiry interval to seven days and disable the keep-longer exception for that policy. The vault marks each daily copy expired when its age reaches that interval. Apply the policy to daily snapshots, not weekly exports. A minimum retention of seven days with a longer exception does not meet this scenario's exact-duration request, even if the first week behaves identically."
+      ],
+      [
+        "Long snapshot lifecycle",
+        "Use a thirty-day expiry interval for daily snapshots and leave the keep-longer exception disabled. The vault expires each daily copy at the configured age. Confirm that the policy selector targets the daily collection rather than the weekly export folder. Retaining copies for at least thirty days while allowing indefinite extensions is a different rule from the exact interval described in this exercise."
+      ],
+      [
+        "Weekly export history",
+        "The weekly export policy keeps seven export files, replacing the oldest when a new weekly file arrives. The number seven is a count, not a duration in days, and the rule does not apply to daily snapshots. Changing this policy cannot establish either a seven-day or a thirty-day daily retention interval. Check the collection selector and unit before interpreting a retention value."
+      ],
+      [
+        "Daily expiry policy review",
+        "Daily snapshots use an age interval measured in days. Set it to seven for the short scenario or thirty for the long scenario, with the keep-longer exception disabled in either case. The collection selector must point to daily snapshots. Weekly export retention counts files instead and must not be substituted for a daily duration. Record both the numeric value and its unit when reviewing the policy."
+      ],
+      [
+        "Vault navigation folders",
+        "Folder colors help reviewers distinguish media projects in the vault browser. Changing a color does not move a snapshot to another collection or modify an expiry interval. A snapshot retains its original policy association even if the browser presents it under a saved view. To investigate retention, inspect the policy identifier on the snapshot rather than inferring it from a folder's display color."
+      ]
+    ]
+  },
+  {
+    "id": "f12",
+    "domain": "network_security",
+    "type": "numeric_scope",
+    "inv": "paraphrase",
+    "split": "observe",
+    "q": [
+      "How do I set the failed-login observation window to exactly 15 minutes on the edge portal?",
+      "How do I make the edge portal count failed logins within an observation window of exactly 15 minutes?",
+      "How do I set the failed-login observation window to exactly 60 minutes on the edge portal?"
+    ],
+    "terms": [
+      "15",
+      "60"
+    ],
+    "senses": [
+      "fifteen_minute_window",
+      "sixty_minute_window"
+    ],
+    "invterm": "observation window",
+    "semantic": [
+      "observation window",
+      "observation window",
+      "observation window"
+    ],
+    "semantic_sense": "failure_counting_window",
+    "immutable": [
+      [
+        "set",
+        "failed-login",
+        "exactly",
+        "15 minutes",
+        "edge portal"
+      ],
+      [
+        "edge portal",
+        "failed logins",
+        "exactly",
+        "15 minutes"
+      ],
+      [
+        "set",
+        "failed-login",
+        "exactly",
+        "60 minutes",
+        "edge portal"
+      ]
+    ],
+    "context": "The edge portal is a fictional training system with independent controls for counting failures and delaying subsequent attempts. Its observation window uses minutes. The settings in this document are exercise requirements, not security recommendations for a real authentication service.",
+    "difference": "The exact rolling failure-count window changes, not the lockout duration.",
+    "sources": [],
+    "docs": [
+      [
+        "Quarter-hour failure count",
+        "Set the failure observation interval to fifteen minutes and keep its unit set to minutes. The edge portal then counts failures whose timestamps fall within that rolling interval when evaluating a new attempt. Older failures fall outside the count. Leave the separate lockout duration unchanged. A fifteen-minute lockout with a different observation interval would affect delays but would not implement the requested counting window."
+      ],
+      [
+        "Hour-long failure count",
+        "Configure the observation interval as sixty minutes in the edge portal's failure counter. The counter includes failures from that rolling hour and excludes older events. Confirm the unit before saving, because entering sixty seconds defines a different window. This setting does not change how long a locked account waits before retrying; the lockout timer is a separate field in this fictional portal."
+      ],
+      [
+        "Account lockout timer",
+        "The lockout duration determines how long the portal delays further attempts after a lockout begins. It can be set to fifteen or sixty minutes independently of the observation interval. This delay is not the rolling window used to count prior failed logins. Changing only the lockout timer therefore cannot satisfy a request to change the failure observation window to either specified duration."
+      ],
+      [
+        "Counter and delay separation",
+        "To count failures over a quarter hour, set the observation interval to fifteen minutes. To count over an hour, set it to sixty minutes. In both cases check the unit and leave the independent lockout duration untouched unless another task requires changing it. The portal reports the active observation interval beside the failure count so an operator can verify the requested window after saving."
+      ],
+      [
+        "Portal help language",
+        "The edge portal can display help text in several languages while retaining the same underlying settings. Switching the language changes labels and explanatory messages but not stored interval values or units. When comparing screenshots, record the field identifier rather than relying only on the translated label. Language selection does not clear failed-login records, reset the observation window, or release an account from an existing delay."
+      ]
+    ]
+  }
+]
